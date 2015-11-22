@@ -57,9 +57,10 @@ class GeventSocketIOBaseWorker(GeventPyWSGIWorker):
             if self.cfg.is_ssl:
                 ssl_args = dict(
                     server_side=True,
-                    do_handshake_on_connect=False,
                     **self.cfg.ssl_options
                 )
+                if 'do_handshake_on_connect' not in ssl_args:
+                    ssl_args['do_handshake_on_connect'] = self.cfg.get('do_handshake_on_connect', False)
 
             for s in self.sockets:
                 s.setblocking(1)
