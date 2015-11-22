@@ -36,7 +36,7 @@ class BaseTransport(object):
             # Gevent 1.0bX
             l = len(data)
             self.handler.provided_content_length = l
-            self.handler.response_headers.append(('Content-Length', l))
+            self.handler.response_headers.append(('Content-Length', str(l)))
 
         self.handler.write_smart(data)
 
